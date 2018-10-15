@@ -83,15 +83,15 @@ class AppDelegate : UIResponder, UIApplicationDelegate {
         // SFPushNotificationManager.sharedInstance().registerForRemoteNotifications()
         
         //Uncomment the code below to see how you can customize the color, textcolor, font and fontsize of the navigation bar
-        //var loginViewConfig = SFSDKLoginViewControllerConfig()
+        var loginViewConfig = SFSDKLoginViewControllerConfig()
         //Set showSettingsIcon to NO if you want to hide the settings icon on the nav bar
-        //loginViewConfig.showSettingsIcon = false
+        loginViewConfig.showSettingsIcon = false
         //Set showNavBar to NO if you want to hide the top bar
         //loginViewConfig.showNavbar = true
         //loginViewConfig.navBarColor = UIColor(red: 0.051, green: 0.765, blue: 0.733, alpha: 1.0)
         //loginViewConfig.navBarTextColor = UIColor.white
         //loginViewConfig.navBarFont = UIFont(name: "Helvetica", size: 16.0)
-        //SFUserAccountManager.sharedInstance().loginViewControllerConfig = loginViewConfig
+        SFUserAccountManager.sharedInstance().loginViewControllerConfig = loginViewConfig
         
         SalesforceSwiftSDKManager.shared().launch()
         return true

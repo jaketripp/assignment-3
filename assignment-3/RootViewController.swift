@@ -188,6 +188,10 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
                 destination.customer = Customer([:])
                 destination.delegate = self
             }
+        } else if segue.identifier == "toCustomerMap" {
+            if let destination = segue.destination as? MapViewController {
+                destination.customers = self.customerList
+            }
         }
     }
     

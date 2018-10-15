@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 struct Customer {
     var name    : String?
@@ -16,6 +17,8 @@ struct Customer {
     var state   : String?
     var zip     : String?
     var id      : String?
+    var location : CLLocationCoordinate2D?
+    var formattedAddress : String?
     
     init(_ data: [String: Any]) {
         self.name   = data["Name"] as? String
@@ -25,6 +28,7 @@ struct Customer {
         self.state  = data["State__c"] as? String
         self.zip    = data["Zip__c"] as? String
         self.id     = data["Id"] as? String
+        self.formattedAddress = buildAddress()
     }
     
     /// returns Bool of whether current data is equivalent to a passed Customer object.
@@ -46,5 +50,24 @@ struct Customer {
         data["State__c"] = self.state ?? ""
         data["Zip__c"] = self.zip ?? ""
         return data
+    }
+    
+    // returns formatted address using street, city, state, zip
+    // address used for obtaining coordinates with geocoder
+    func buildAddress() -> String {
+        var address : String = ""
+        if self.street != nil {
+            address += "\(self.street ?? "")"
+        }
+        if self.city != nil {
+            address += ", \(self.city ?? "")"
+        }
+        if self.state != nil {
+            address += ", \(self.state ?? "")"
+        }
+        if self.zip != nil {
+            address += " \(self.zip ?? "")"
+        }
+        return address
     }
 }

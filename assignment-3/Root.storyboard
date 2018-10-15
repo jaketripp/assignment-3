@@ -73,7 +73,7 @@
                                     <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                     <state key="normal" image="map"/>
                                     <connections>
-                                        <segue destination="go1-dF-N8v" kind="show" id="gm7-Yj-8Sa"/>
+                                        <segue destination="go1-dF-N8v" kind="show" identifier="toCustomerMap" id="gm7-Yj-8Sa"/>
                                     </connections>
                                 </button>
                             </barButtonItem>
@@ -98,10 +98,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="top" secondItem="NKq-M3-4nY" secondAttribute="top" constant="64" id="LbD-kR-SwI"/>
-                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="leading" secondItem="NKq-M3-4nY" secondAttribute="leading" id="bbZ-wf-gWg"/>
-                            <constraint firstAttribute="bottom" secondItem="0Ce-ZF-lyg" secondAttribute="bottom" id="hYc-Uc-Ghk"/>
-                            <constraint firstAttribute="trailing" secondItem="0Ce-ZF-lyg" secondAttribute="trailing" id="ixw-38-Vpg"/>
+                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="leading" secondItem="dIP-QP-u0D" secondAttribute="leading" id="5m2-CK-nNC"/>
+                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="top" secondItem="dIP-QP-u0D" secondAttribute="top" id="AWh-Ux-hnF"/>
+                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="bottom" secondItem="dIP-QP-u0D" secondAttribute="bottom" id="UK1-m3-d5D"/>
+                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="trailing" secondItem="dIP-QP-u0D" secondAttribute="trailing" id="jhA-CU-nhj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dIP-QP-u0D"/>
                     </view>
