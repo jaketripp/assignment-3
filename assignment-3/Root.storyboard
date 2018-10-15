@@ -39,7 +39,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="MNv-A0-sn1">
                         <leftBarButtonItems>
-                            <barButtonItem style="plain" id="Gio-Ou-3M7">
+                            <barButtonItem style="plain" id="Gio-Ou-3M7" userLabel="Segment Controller Item">
                                 <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="agv-v7-NXo">
                                     <rect key="frame" x="16" y="7" width="101" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -50,7 +50,7 @@
                                     <color key="tintColor" red="0.0" green="0.41176470590000003" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </segmentedControl>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="eQG-BK-kfl">
+                            <barButtonItem style="plain" id="eQG-BK-kfl" userLabel="Asc Button Item">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="N0J-vz-nMb" userLabel="AscOrDesc">
                                     <rect key="frame" x="125" y="6" width="38" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -59,17 +59,59 @@
                                 </button>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GKn-oM-UBO">
-                            <color key="tintColor" red="0.0" green="0.41176470590000003" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="UCV-TL-wA3" kind="show" identifier="toCreateCustomerDetail" id="Osi-Pq-U6L"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="GKn-oM-UBO">
+                                <color key="tintColor" red="0.0" green="0.41176470590000003" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <segue destination="UCV-TL-wA3" kind="show" identifier="toCreateCustomerDetail" id="Osi-Pq-U6L"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="kd2-S7-vgU" userLabel="Map Button Item">
+                                <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rKk-CU-AQu" userLabel="Map">
+                                    <rect key="frame" x="290.5" y="6" width="32" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                    <state key="normal" image="map"/>
+                                    <connections>
+                                        <segue destination="go1-dF-N8v" kind="show" id="gm7-Yj-8Sa"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPB-qS-nOa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="924" y="8.5457271364317844"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="PhC-B3-YG4">
+            <objects>
+                <viewController id="go1-dF-N8v" customClass="MapViewController" customModule="assignment_3" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NKq-M3-4nY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="0Ce-ZF-lyg">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="top" secondItem="NKq-M3-4nY" secondAttribute="top" constant="64" id="LbD-kR-SwI"/>
+                            <constraint firstItem="0Ce-ZF-lyg" firstAttribute="leading" secondItem="NKq-M3-4nY" secondAttribute="leading" id="bbZ-wf-gWg"/>
+                            <constraint firstAttribute="bottom" secondItem="0Ce-ZF-lyg" secondAttribute="bottom" id="hYc-Uc-Ghk"/>
+                            <constraint firstAttribute="trailing" secondItem="0Ce-ZF-lyg" secondAttribute="trailing" id="ixw-38-Vpg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dIP-QP-u0D"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="0Ce-ZF-lyg" id="Oqn-Bz-bLv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="euu-Ok-Q1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2471.1999999999998" y="-768.66566716641682"/>
         </scene>
         <!--Customer Detail View Controller-->
         <scene sceneID="JUM-ud-d6C">
@@ -84,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGU-kf-nNv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="11"/>
+            <point key="canvasLocation" x="2618" y="203"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GlM-6V-M7d">
@@ -107,6 +149,7 @@
     </scenes>
     <resources>
         <image name="asc" width="32" height="32"/>
+        <image name="map" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="gQk-Md-dx2"/>
