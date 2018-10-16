@@ -70,4 +70,16 @@ struct Customer {
         }
         return address
     }
+    
+    /// Returns an array of formatted strings to use for map annotation subtitle
+    func toFormattedStrings() -> [String] {
+        var formattedStrings : [String] = []
+        if self.email != nil {
+            formattedStrings.append(self.email!)
+        }
+        if self.formattedAddress != nil {
+            formattedStrings.append(self.formattedAddress!)
+        }
+        return formattedStrings
+    }
 }

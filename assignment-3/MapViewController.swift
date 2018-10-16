@@ -36,12 +36,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let geoCoder = CLGeocoder()
     
     var customers : [Customer]!
-    var mapPins : [CustomPin]!
+    var mapPins : [CustomPin] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        // Golden Gate Bridge
 //        let goldenGateLocation = CLLocationCoordinate2D(latitude: 37.8199, longitude: -122.4783)
 //        let statueOfLibertyLocation = CLLocationCoordinate2D(latitude: 40.6892, longitude: -74.0445)
 //        let kremlinLocation = CLLocationCoordinate2D(latitude: 55.7520, longitude: 37.6175)
@@ -56,34 +54,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         geoCode(customers: customers) { results in
             print("Got back \(results.count) results")
-//            print(self.mapView.annotations)
-
+            self.centerAndZoom()
         }
-        print(self.mapView.annotations)
-//        self.getCustomerLocations()
         self.mapView.delegate = self
     }
     
-    func geoCode(customers: [Customer], results: [CLLocation] = [], completion: @escaping ([CLLocation]) -> Void ) {
+    func geoCode(customers: [Customer], resultCustomers: [Customer] = [], completion: @escaping ([Customer]) -> Void ) {
         guard let address = customers.first?.formattedAddress else {
-            completion(results)
+            completion(resultCustomers)
             return
         }
         
         geoCoder.geocodeAddressString(address) { placemarks, error in
             
-            var updatedResults = results
+            var updatedResults = resultCustomers
             
             if let placemark = placemarks?.first {
                 var customerWithLocation = customers[0]
                 customerWithLocation.location = placemark.location?.coordinate
                 self.createMapPin(for: customerWithLocation)
-                updatedResults.append(placemark.location!)
+                updatedResults.append(customerWithLocation)
             }
             
             let remainingCustomers = Array(customers[1..<customers.count])
             
-            self.geoCode(customers: remainingCustomers, results: updatedResults, completion: completion)
+            self.geoCode(customers: remainingCustomers, resultCustomers: updatedResults, completion: completion)
         }
     }
     
@@ -115,8 +110,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func createMapPin(for customer: Customer) {
         
         if let name = customer.name, let coordinates = customer.location {
-            let customPin = CustomPin(title: name, subtitle: "Something interesting goes here", coordinate: coordinates)
-            mapPins.append(customPin)
+            var customPin = CustomPin(title: name, subtitle: "", coordinate: coordinates)
+            self.mapPins.append(customPin)
             self.mapView.addAnnotation(customPin)
         }
         
@@ -138,54 +133,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         //        print("annotation title == \(String(describing: view.annotation?.title!))")
     }
     
+    /// Sets the optimal center point and zoom level
+    func centerAndZoom() {
+        let points = self.mapView.annotations.map({ $0.coordinate })
+        let regionInfo = self.getRegionInfo(points: points, insetX: 3, insetY: 3)
+        let center = CLLocationCoordinate2DMake(regionInfo.latitude, regionInfo.longitude)
+        let span = MKCoordinateSpan(latitudeDelta: regionInfo.latitudeDelta, longitudeDelta: regionInfo.longitudeDelta)
+        let region = MKCoordinateRegionMake(center, span)
+        self.mapView.setRegion(region, animated: true)
+    }
     
-    
-//    func zoomToFitMapAnnotations(myMapView:MKMapView)
-//    {
-//        if(myMapView.annotations.count == 0)
-//        {
-//            return
-//        }
-//
-//
-//        var topLeftCoord = CLLocationCoordinate2D.init(latitude: -90, longitude: 180)
-//
-//
-//        var bottomRightCoord = CLLocationCoordinate2D.init(latitude: 90, longitude: -180)
-//
-//
-//        for i in 0..<myMapView.annotations.count
-//        {
-//            let annotation = myMapView.annotations[i]
-//
-//            // get the absolute smallest longitude
-//            topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude);
-//            // get the absolute biggest latitude
-//            topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude);
-//
-//            // get the absolute biggest longitude
-//            bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude);
-//            // get the absolute smallest latitude
-//            bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.coordinate.latitude);
-//        }
-//
-//
-//        let resd = CLLocationCoordinate2D.init(latitude: topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5, longitude: topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5)
-//
-//        let span = MKCoordinateSpan.init(latitudeDelta: fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.3, longitudeDelta: fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.3)
-//
-//        print(resd)
-//        var region = MKCoordinateRegion.init(center: resd, span: span);
-//
-//
-//
-//        region = myMapView.regionThatFits(region)
-//
-//        myMapView.setRegion(region, animated: true)
-//
-//
-//    }
-    
+    /// Mathematically calculates the optimal center and zoom based on an array of coordinates
     func getRegionInfo(points : [CLLocationCoordinate2D], insetX: Double?, insetY: Double?) -> Region {
         var minX = points[0].latitude
         var maxX = points[0].latitude
@@ -215,13 +173,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             deltaY += insetY
         }
 
-//        var regionInfo =
-//        regionInfo.latitude = midX
-//        regionInfo.longitude = midY
-//        regionInfo.latitudeDelta = deltaX
-//        regionInfo.longitudeDelta = deltaY
-//
-//        return regionInfo
         return Region(latitude: midX, longitude: midY, latitudeDelta: deltaX, longitudeDelta: deltaY)
     }
     
