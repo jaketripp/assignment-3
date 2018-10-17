@@ -26,7 +26,15 @@ struct Customer {
         self.street = data["Address__c"] as? String
         self.city   = data["City__c"] as? String
         self.state  = data["State__c"] as? String
-        self.zip    = data["Zip__c"] as? String
+        // dumb work around for SF, which was possibly broken in Winter 2019
+        // if you can convert to an optional int and it's greater than 0,
+        // convert to a string
+        // else, just save it as an optional string
+        if let zval = data["Zip__c"] as? Int, zval > 0 {
+            self.zip = String(zval)
+        } else {
+            self.zip  = data["Zip__c"] as? String
+        }
         self.id     = data["Id"] as? String
         self.formattedAddress = buildAddress()
     }
@@ -69,17 +77,5 @@ struct Customer {
             address += " \(self.zip ?? "")"
         }
         return address
-    }
-    
-    /// Returns an array of formatted strings to use for map annotation subtitle
-    func toFormattedStrings() -> [String] {
-        var formattedStrings : [String] = []
-        if self.email != nil {
-            formattedStrings.append(self.email!)
-        }
-        if self.formattedAddress != nil {
-            formattedStrings.append(self.formattedAddress!)
-        }
-        return formattedStrings
     }
 }

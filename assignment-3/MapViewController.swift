@@ -1,15 +1,27 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  MapKitTest
 //
 //  Created by Tripp,Jacob on 10/13/18.
 //  Copyright © 2018 Tripp,Jacob. All rights reserved.
 //
 
+//    let goldenGateLocation = CLLocationCoordinate2D(latitude: 37.8199, longitude: -122.4783)
+//    let statueOfLibertyLocation = CLLocationCoordinate2D(latitude: 40.6892, longitude: -74.0445)
+//    let kremlinLocation = CLLocationCoordinate2D(latitude: 55.7520, longitude: 37.6175)
+//
+//    let goldenGatePin = CustomPin(title: "Golden Gate Bridge", subtitle: "The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the one-mile-wide strait connecting San Francisco Bay and the Pacific Ocean.", coordinate: goldenGateLocation)
+//    let statueOfLibertyPin = CustomPin(title: "State of Liberty", subtitle: "The Statue of Liberty is a colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States.", coordinate: statueOfLibertyLocation)
+//    let kremlinPin = CustomPin(title: "Moscow Kremlin", subtitle: "The Moscow Kremlin, or simply the Kremlin, is a fortified complex at the heart of Moscow, overlooking the Moskva River to the south, Saint Basil's Cathedral and Red Square to the east, and the Alexander Garden to the west.", coordinate: kremlinLocation)
+//
+//    self.mapView.addAnnotation(goldenGatePin)
+//    self.mapView.addAnnotation(statueOfLibertyPin)
+//    self.mapView.addAnnotation(kremlinPin)
+
 import UIKit
 import MapKit
 
-
+/// Custom pin class that adheres to the MKAnnotation protocol to have a custom pin.
 class CustomPin: NSObject, MKAnnotation {
     var title: String?
     var subtitle: String?
@@ -22,6 +34,7 @@ class CustomPin: NSObject, MKAnnotation {
     }
 }
 
+/// Region struct that holds the necessary info to create a region (center coordinate and span)
 struct Region {
     var latitude : Double
     var longitude : Double
@@ -40,22 +53,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let goldenGateLocation = CLLocationCoordinate2D(latitude: 37.8199, longitude: -122.4783)
-//        let statueOfLibertyLocation = CLLocationCoordinate2D(latitude: 40.6892, longitude: -74.0445)
-//        let kremlinLocation = CLLocationCoordinate2D(latitude: 55.7520, longitude: 37.6175)
-//
-//        let goldenGatePin = CustomPin(title: "Golden Gate Bridge", subtitle: "The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the one-mile-wide strait connecting San Francisco Bay and the Pacific Ocean.", coordinate: goldenGateLocation)
-//        let statueOfLibertyPin = CustomPin(title: "State of Liberty", subtitle: "The Statue of Liberty is a colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States.", coordinate: statueOfLibertyLocation)
-//        let kremlinPin = CustomPin(title: "Moscow Kremlin", subtitle: "The Moscow Kremlin, or simply the Kremlin, is a fortified complex at the heart of Moscow, overlooking the Moskva River to the south, Saint Basil's Cathedral and Red Square to the east, and the Alexander Garden to the west.", coordinate: kremlinLocation)
-//
-//        self.mapView.addAnnotation(goldenGatePin)
-//        self.mapView.addAnnotation(statueOfLibertyPin)
-//        self.mapView.addAnnotation(kremlinPin)
         
         geoCode(customers: customers) { results in
             print("Got back \(results.count) results")
             self.centerAndZoom()
         }
+        
         self.mapView.delegate = self
     }
     
@@ -109,8 +112,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // given a customer, adds an annotation to the map
     func createMapPin(for customer: Customer) {
         
-        if let name = customer.name, let coordinates = customer.location {
-            var customPin = CustomPin(title: name, subtitle: "", coordinate: coordinates)
+        if let name = customer.name, let coordinates = customer.location, let address = customer.formattedAddress {
+            let customPin = CustomPin(title: name, subtitle: address, coordinate: coordinates)
             self.mapPins.append(customPin)
             self.mapView.addAnnotation(customPin)
         }
@@ -130,7 +133,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        //        print("annotation title == \(String(describing: view.annotation?.title!))")
+        // print("annotation title == \(String(describing: view.annotation?.title!))")
     }
     
     /// Sets the optimal center point and zoom level

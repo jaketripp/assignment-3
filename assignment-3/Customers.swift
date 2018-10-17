@@ -18,7 +18,7 @@ class Customers: NSObject {
     /// Get the initial customers' data
     func get(completion: @escaping (() -> Void)) {
         
-        let soqlQuery = "SELECT Id, Name, Email__c, Address__c, City__c, State__c, Zip__c, LastModifiedDate FROM CM_Customer__c WHERE Address__c != '' ORDER BY LastModifiedDate DESC LIMIT 5"
+        let soqlQuery = "SELECT Id, Name, Email__c, Address__c, City__c, State__c, Zip__c, LastModifiedDate FROM CM_Customer__c WHERE Address__c != '' ORDER BY LastModifiedDate DESC LIMIT 10"
         let getRequest = restApi.request(forQuery: soqlQuery)
         
         restApi.Promises.send(request: getRequest)

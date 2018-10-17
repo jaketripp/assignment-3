@@ -14,7 +14,6 @@
 		4FD6C4A01B755242002F9F90 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6C49D1B755242002F9F90 /* InitialViewController.swift */; };
 		B7168FBC1FACC6F900A48DB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7168FBB1FACC6F900A48DB5 /* LaunchScreen.storyboard */; };
 		CC3A130D217412D800AC42A4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3A130C217412D800AC42A4 /* MapViewController.swift */; };
-		CC3A130F21756D4600AC42A4 /* Ext_Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3A130E21756D4600AC42A4 /* Ext_Annotation.swift */; };
 		CCE6594421740332000DBD29 /* CustomerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE6594321740332000DBD29 /* CustomerDetailViewController.swift */; };
 		CCE6594821740362000DBD29 /* Ext_Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE6594521740362000DBD29 /* Ext_Color.swift */; };
 		CCE6594921740362000DBD29 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE6594621740362000DBD29 /* Validation.swift */; };
@@ -40,7 +39,6 @@
 		99F9BBB33540ED72CAD6A9B2 /* Pods_assignment_3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_assignment_3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7168FBB1FACC6F900A48DB5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "../mobile_sdk/SalesforceMobileSDK-iOS/shared/resources/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		CC3A130C217412D800AC42A4 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		CC3A130E21756D4600AC42A4 /* Ext_Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ext_Annotation.swift; sourceTree = "<group>"; };
 		CCE6594321740332000DBD29 /* CustomerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailViewController.swift; sourceTree = "<group>"; };
 		CCE6594521740362000DBD29 /* Ext_Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ext_Color.swift; sourceTree = "<group>"; };
 		CCE6594621740362000DBD29 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				CCE6594721740362000DBD29 /* Ext_Alert.swift */,
 				CCE6594521740362000DBD29 /* Ext_Color.swift */,
 				CCE6594621740362000DBD29 /* Validation.swift */,
-				CC3A130E21756D4600AC42A4 /* Ext_Annotation.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -336,7 +333,6 @@
 				4FD6C4A01B755242002F9F90 /* InitialViewController.swift in Sources */,
 				CCE6594D21740373000DBD29 /* Customer.swift in Sources */,
 				CCE6594821740362000DBD29 /* Ext_Color.swift in Sources */,
-				CC3A130F21756D4600AC42A4 /* Ext_Annotation.swift in Sources */,
 				CCE6594921740362000DBD29 /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

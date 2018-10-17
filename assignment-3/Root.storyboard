@@ -48,6 +48,9 @@
                                         <segment title="State"/>
                                     </segments>
                                     <color key="tintColor" red="0.0" green="0.41176470590000003" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="sortTapped:" destination="ZGk-CC-kMa" eventType="valueChanged" id="2dC-fP-9FL"/>
+                                    </connections>
                                 </segmentedControl>
                             </barButtonItem>
                             <barButtonItem style="plain" id="eQG-BK-kfl" userLabel="Asc Button Item">
@@ -56,6 +59,9 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="10" minY="12" maxX="10" maxY="12"/>
                                     <state key="normal" image="asc"/>
+                                    <connections>
+                                        <action selector="ascOrDescPressed:" destination="ZGk-CC-kMa" eventType="touchUpInside" id="Ega-u8-by9"/>
+                                    </connections>
                                 </button>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -79,6 +85,10 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="ascOrDesc" destination="N0J-vz-nMb" id="xYh-yf-4ic"/>
+                        <outlet property="sortSegmentController" destination="agv-v7-NXo" id="U8d-aL-HpR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPB-qS-nOa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
