@@ -36,6 +36,9 @@ enum SortBy {
 
 class RootViewController : UITableViewController, CustomerDetailProtocol {
     
+    @IBOutlet weak var ascOrDesc: UIButton!
+    @IBOutlet weak var sortSegmentController: UISegmentedControl!
+
     // MARK: - DATA / VARIABLES
     var customers = Customers()
     private var shouldSortBy : SortBy = .name
@@ -119,8 +122,6 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
     
     
     // MARK: - SORT
-    @IBOutlet weak var sortSegmentController: UISegmentedControl!
-    
     @IBAction func sortTapped(_ sender: UISegmentedControl) {
         DispatchQueue.main.async(execute: {
             let scIndex = self.sortSegmentController.selectedSegmentIndex
@@ -156,9 +157,6 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
     
     
     // MARK: - REVERSE
-    
-    @IBOutlet weak var ascOrDesc: UIButton!
-    
     @IBAction func ascOrDescPressed(_ sender: Any) {
         isAscending = !isAscending
         let imageName = isAscending ? "asc" : "desc"
