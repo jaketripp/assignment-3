@@ -139,7 +139,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     /// Sets the optimal center point and zoom level
     func centerAndZoom() {
         let points = self.mapView.annotations.map({ $0.coordinate })
-        let regionInfo = self.getRegionInfo(points: points, insetX: 3, insetY: 3)
+        let regionInfo = self.getRegionInfo(points: points, insetX: 6, insetY: 16)
         let center = CLLocationCoordinate2DMake(regionInfo.latitude, regionInfo.longitude)
         let span = MKCoordinateSpan(latitudeDelta: regionInfo.latitudeDelta, longitudeDelta: regionInfo.longitudeDelta)
         let region = MKCoordinateRegionMake(center, span)
@@ -147,7 +147,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     /// Mathematically calculates the optimal center and zoom based on an array of coordinates
-    func getRegionInfo(points : [CLLocationCoordinate2D], insetX: Double?, insetY: Double?) -> Region {
+    func getRegionInfo(points : [CLLocationCoordinate2D], insetX: Double? = 3, insetY: Double? = 3) -> Region {
         var minX = points[0].latitude
         var maxX = points[0].latitude
         var minY = points[0].longitude
