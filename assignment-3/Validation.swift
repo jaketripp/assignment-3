@@ -12,6 +12,9 @@ import Eureka
 class Validation: NSObject {
     /// Sets default error handling for all the Eureka rows I'm using (make the text red and show the error)
     static func setEurekaRowDefaults() {
+        TextRow.defaultCellSetup = { (cell, row) in
+            cell.textField.autocorrectionType = .no
+        }
         TextRow.defaultCellUpdate = { cell, row in
             if !row.isValid {
                 cell.titleLabel?.textColor = .red
@@ -31,6 +34,10 @@ class Validation: NSObject {
                     row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
                 }
             }
+        }
+        
+        EmailRow.defaultCellSetup = { (cell, row) in
+            cell.textField.autocorrectionType = .no
         }
         EmailRow.defaultCellUpdate = { cell, row in
             if !row.isValid {
@@ -52,6 +59,7 @@ class Validation: NSObject {
                 }
             }
         }
+        
         ZipCodeRow.defaultCellUpdate = { cell, row in
             if !row.isValid {
                 cell.titleLabel?.textColor = .red
