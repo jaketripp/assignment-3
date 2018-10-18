@@ -141,9 +141,9 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
         switch whatToSortBy {
         case .name:
             if (isAscending) {
-                return customers.sorted { $0.name ?? "" < $1.name ?? "" }
+                return customers.sorted { $0.name?.lowercased() ?? "" < $1.name?.lowercased() ?? "" }
             } else {
-                return customers.sorted { $0.name ?? "" > $1.name ?? "" }
+                return customers.sorted { $0.name?.lowercased() ?? "" > $1.name?.lowercased() ?? "" }
             }
         case .state:
             if (isAscending) {
