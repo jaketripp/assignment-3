@@ -63,8 +63,12 @@ class CustomerDetailViewController: FormViewController {
                 $0.title = "Name"
                 $0.placeholder = "John Smith"
                 $0.value = customer.name
+                
                 $0.add(rule: RuleRequired(msg: "Name field required!"))
                 $0.add(rule: RuleMaxLength(maxLength: 80, msg: "Name cannot be longer than 80 characters!"))
+            }
+            .cellSetup { (cell, row) in
+                cell.textField.autocorrectionType = .no
             }
             
             // MARK: - EMAIL
@@ -73,6 +77,9 @@ class CustomerDetailViewController: FormViewController {
                 $0.placeholder = "john.smith@gmail.com"
                 $0.value = customer.email
                 $0.add(rule: RuleEmail())
+            }
+            .cellSetup { (cell, row) in
+                cell.textField.autocorrectionType = .no
             }
             
             // MARK: - ADDRESS
