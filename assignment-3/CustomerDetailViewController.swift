@@ -40,15 +40,15 @@ class CustomerDetailViewController: FormViewController {
     var userIsCurrently : CurrentAction = .creating
     
     /// Struct for form items tag constants
-    struct FormItems {
-        static let name = "Name"
-        static let email = "Email__c"
-        static let street = "Address__c"
-        static let city = "City__c"
-        static let state = "State__c"
-        static let zip = "Zip__c"
-        static let submitButton = "submitButton"
-    }
+    let formItems : [String:String] = [
+        "name": "Name",
+        "email": "Email__c",
+        "street": "Address__c",
+        "city": "City__c",
+        "state": "State__c",
+        "zip": "Zip__c",
+        "submitButton": "submitButton"
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,31 +59,24 @@ class CustomerDetailViewController: FormViewController {
         
         form +++ Section(sectionTitle)
             // MARK: - NAME
-            <<< TextRow(FormItems.name) {
+            <<< TextRow(formItems["name"]) {
                 $0.title = "Name"
                 $0.placeholder = "John Smith"
                 $0.value = customer.name
-                
                 $0.add(rule: RuleRequired(msg: "Name field required!"))
                 $0.add(rule: RuleMaxLength(maxLength: 80, msg: "Name cannot be longer than 80 characters!"))
             }
-            .cellSetup { (cell, row) in
-                cell.textField.autocorrectionType = .no
-            }
             
             // MARK: - EMAIL
-            <<< EmailRow(FormItems.email) {
+            <<< EmailRow(formItems["email"]) {
                 $0.title = "Email"
                 $0.placeholder = "john.smith@gmail.com"
                 $0.value = customer.email
                 $0.add(rule: RuleEmail())
             }
-            .cellSetup { (cell, row) in
-                cell.textField.autocorrectionType = .no
-            }
             
             // MARK: - ADDRESS
-            <<< TextRow(FormItems.street) {
+            <<< TextRow(formItems["street"]) {
                 $0.title = "Address"
                 $0.placeholder = "123 Apple Street"
                 $0.value = customer.street
@@ -91,15 +84,15 @@ class CustomerDetailViewController: FormViewController {
             }
             
             // MARK: - CITY
-            <<< TextRow(FormItems.city) {
+            <<< TextRow(formItems["city"]) {
                 $0.title = "City"
                 $0.placeholder = "San Antonio"
                 $0.value = customer.city
-                $0.add(rule: RuleMaxLength(maxLength: 255, msg: "City cannot be longer than 80 characters!"))
+                $0.add(rule: RuleMaxLength(maxLength: 255, msg: "City cannot be longer than 255 characters!"))
             }
             
             // MARK: - STATE
-            <<< PickerInlineRow<String>(FormItems.state) { (row : PickerInlineRow<String>) -> Void in
+            <<< PickerInlineRow<String>(formItems["state"]) { (row : PickerInlineRow<String>) -> Void in
                 row.title = "State"
                 row.noValueDisplayText = "Pick a state"
                 row.options = ["", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"]
@@ -113,7 +106,7 @@ class CustomerDetailViewController: FormViewController {
             }
             
             // MARK: - ZIP
-            <<< ZipCodeRow(FormItems.zip) {
+            <<< ZipCodeRow(formItems["zip"]) {
                 $0.title = "Zip Code"
                 $0.placeholder = "12345"
                 $0.value = customer.zip
@@ -132,8 +125,12 @@ class CustomerDetailViewController: FormViewController {
             }
             
             // MARK: - SUBMIT
-            <<< ButtonRow(FormItems.submitButton) {
+            <<< ButtonRow(formItems["submitButton"]) {
                 $0.title = buttonText
+                let tags = Array(formItems.values)
+                $0.disabled = Condition.function(tags, { form in
+                    return !form.validate().isEmpty
+                })
                 $0.onCellSelection({ (cell, row) in
                     // no validation errors
                     if let validationErrors : [ValidationError] = row.section?.form?.validate(), validationErrors.isEmpty {
