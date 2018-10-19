@@ -60,8 +60,8 @@ struct Customer {
         return data
     }
     
-    // returns formatted address using street, city, state, zip
-    // address used for obtaining coordinates with geocoder
+    /// Returns formatted address using street, city, state, zip.
+    /// Address used for obtaining coordinates with Apple geocoder.
     func buildAddress() -> String {
         var address : String = ""
         if self.street != nil {

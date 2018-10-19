@@ -41,7 +41,9 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
 
     // MARK: - DATA / VARIABLES
     var customers = Customers()
+    /// State of the user's current sort preference - by name or by the customer's US state.
     private var shouldSortBy : SortBy = .name
+    /// State of the user's current sort preference - ascending or descending.
     private var isAscending : Bool = true
     private var myRefreshControl : UIRefreshControl?
     
@@ -122,6 +124,7 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
     
     
     // MARK: - SORT
+    /// Updates the global sort preference state (shouldSortBy) and reloads the table data.
     @IBAction func sortTapped(_ sender: UISegmentedControl) {
         DispatchQueue.main.async(execute: {
             let scIndex = self.sortSegmentController.selectedSegmentIndex
@@ -138,6 +141,7 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
         })
     }
     
+    /// Returns an array of customer objects, sorted by name or state, in ascending or descending order.
     func sort(_ customers: [Customer], by whatToSortBy: SortBy, isAscending: Bool) -> [Customer] {
         switch whatToSortBy {
         case .name:
@@ -157,6 +161,7 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
     
     
     // MARK: - REVERSE
+    /// Updates the global sort-ascending order state and the button image, then reloads table data.
     @IBAction func ascOrDescPressed(_ sender: Any) {
         isAscending = !isAscending
         let imageName = isAscending ? "asc" : "desc"
@@ -195,6 +200,7 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
     
     
     // MARK: - DELETE
+    /// Shows the delete button on a customer when swiped to the left
     override func tableView(_ tableView: UITableView,
                             editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         if (indexPath.row < self.customerList.count) {
@@ -204,6 +210,7 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
         }
     }
     
+    /// Deletes the customer from the table, sends the delete request to SF, if the request fails, re-inserts the customer.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         let row = indexPath.row
@@ -228,7 +235,7 @@ class RootViewController : UITableViewController, CustomerDetailProtocol {
         }
     }
     
-    /// re-insert customers if delete failed
+    /// Re-inserts customer if delete failed
     func reinstateDeletedRowWithRequest(_ customer: Customer, _ id: String, _ indexPath: IndexPath) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.tableView.beginUpdates()

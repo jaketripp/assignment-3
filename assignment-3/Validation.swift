@@ -10,7 +10,8 @@ import UIKit
 import Eureka
 
 class Validation: NSObject {
-    /// Sets default error handling for all the Eureka rows I'm using (make the text red and show the error)
+    /// Sets default error handling for all the Eureka rows I'm using (make the text red and show the error).
+    /// Purposely not split into different classes because it is just setting defaults - abstract that mess away!
     static func setEurekaRowDefaults() {
         TextRow.defaultCellSetup = { (cell, row) in
             cell.textField.autocorrectionType = .no

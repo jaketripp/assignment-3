@@ -10,5 +10,6 @@ import Foundation
 import UIKit
 
 extension UIColor {
+    /// Central Market green.
     static var CMgreen = UIColor(fromHexValue: "#006930")!
 }

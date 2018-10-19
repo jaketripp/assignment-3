@@ -9,6 +9,7 @@
 import UIKit
 
 extension RootViewController {
+    /// Shows generic internet failure alert that can be dismissed.
     func showCustomerActionFailureAlert(title: String, message: String) {
         let realMessage = "\(message) Please check your internet connection or try again later."
         let alert = UIAlertController(title: title, message: realMessage, preferredStyle: UIAlertControllerStyle.alert)

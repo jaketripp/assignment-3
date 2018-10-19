@@ -39,7 +39,8 @@ class CustomerDetailViewController: FormViewController {
     /// What the user is currently doing (creating or updating)
     var userIsCurrently : CurrentAction = .creating
     
-    /// Struct for form items tag constants
+    /// Form items tag constants.
+    /// Basically IDs for each row in the form.
     let formItems : [String:String] = [
         "name": "Name",
         "email": "Email__c",
@@ -54,7 +55,10 @@ class CustomerDetailViewController: FormViewController {
         super.viewDidLoad()
         Validation.setEurekaRowDefaults()
         
+        /// Section title for the form, based on whether the user is updating or creating.
         let sectionTitle = userIsCurrently == .updating ? "Update info" : "Create a new customer"
+        
+        /// Submit button text for the form, based on whether the user is updating or creating.
         let buttonText = userIsCurrently == .updating ? "Update" : "Create"
         
         form +++ Section(sectionTitle)
@@ -156,6 +160,7 @@ class CustomerDetailViewController: FormViewController {
     }
     
     // MARK: - CREATE
+    /// Saves the customer in a fake-hashed-id, reloads the table data, then sends the create request to SF.
     func handleCreate(_ newCustomer: Customer) {
         // use uuid because no id for creating new-customer
         let fakeHashId = NSUUID().uuidString
@@ -164,6 +169,9 @@ class CustomerDetailViewController: FormViewController {
         self.customers.create(newCustomer, fakeHashId, completion: self.createCompletion)
     }
     
+    /// If request was successful, saves the customer in the new customer's id.
+    /// If request failed, shows an error alert.
+    /// Removes the old fake-hash-id either way.
     func createCompletion(fakeId: String, realId: String?, newCustomer: Customer?, error: Error?) {
         
         // remove fakeHashId
@@ -190,6 +198,7 @@ class CustomerDetailViewController: FormViewController {
     }
     
     // MARK: - UPDATE
+    /// If needed, updates the old-customer to be the new-customer, reloads the table data, then sends the create request to SF.
     func handleUpdate(_ customerPassed: Customer) {
         
         var newCustomer = customerPassed
@@ -211,6 +220,7 @@ class CustomerDetailViewController: FormViewController {
         }
     }
     
+    /// If request failed, shows an error alert, reverts new-customer back to old-customer, and reloads the table data.
     func updateCompletion(customerId: String, oldCustomer: Customer, error: Error?) {
         if error != nil {
             // show alert

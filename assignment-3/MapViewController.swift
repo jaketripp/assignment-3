@@ -62,6 +62,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.delegate = self
     }
     
+    /// Recursively gets the coordinates for customers and creates a map annotation for each.
+    /// Has to be recursive because Apple caps your requests, so you can't start another til the first is done.
     func geoCode(customers: [Customer], resultCustomers: [Customer] = [], completion: @escaping ([Customer]) -> Void ) {
         guard let address = customers.first?.formattedAddress else {
             completion(resultCustomers)
@@ -109,7 +111,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //        }
 //    }
     
-    // given a customer, adds an annotation to the map
+    /// Given a customer, adds an annotation to the map
     func createMapPin(for customer: Customer) {
         
         if let name = customer.name, let coordinates = customer.location, let address = customer.formattedAddress {
@@ -120,8 +122,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    
-    
+    /// Allows annotations to have callouts (the bubbles with info you see when you tap the pin) and sets the
+    /// annotation image to be our custom pin image.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
